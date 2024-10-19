@@ -1,14 +1,17 @@
 import { Router } from "express";
-const router = Router()
+import validacionUsuario from "../helpers/validacionUsuarios.js"
+import { crearUsuario } from "../controllers/usuarioControllers.js";
+
+const usuarioRouter = Router()
 
 usuarioRouter
   .route("/")
   .post([validacionUsuario], crearUsuario)
-  .get(listarUsuarios);
+  .get();
 usuarioRouter
   .route("/login")
-  .post(login)
+  .post()
   
 
-router.route("/usuarios")
-export default router
+
+export default usuarioRouter

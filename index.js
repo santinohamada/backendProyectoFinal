@@ -5,6 +5,7 @@ import path from "path"
 import { fileURLToPath } from "url";
 import "./src/database/databaseConnection.js"
 import HabitacionesRouter from "./src/routes/habitaciones.routes.js";
+import usuarioRouter from "./src/routes/usuarios.routes.js"
 
 
 //1- configurar un puerto
@@ -26,3 +27,4 @@ const __dirname = path.dirname(__filename)
 app.use(express.static(path.join(__dirname,"public")))//configuramos un archivo estatico para ver el index en la ruta principal
 
 app.use('/api',HabitacionesRouter)
+app.use('/api/usuarios',usuarioRouter)

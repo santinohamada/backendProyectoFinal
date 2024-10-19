@@ -1,4 +1,4 @@
-import Usuario from "../database/model/usuarios";
+import Usuario from "../../src/database/model/usuarios.js"
 import bcrypt from "bcrypt"
 
 export const crearUsuario = async (req,res)=>{
