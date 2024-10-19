@@ -18,3 +18,21 @@ export const crearUsuario = async (req,res)=>{
         })
     }
 }
+
+export const login = async (req,res)=>{
+    try {
+        const {dni,password} = req.body
+        const usuarioExistente = Usuario.findOne({dni})
+        if(!usuarioExistente){
+            return res.status(400).json({mensaje: "correo o contraseña incorrecta"})
+        }
+        const passwordValido = bcrypt.compareSync(password, usuarioExistente.password)
+        if(!passwordValido){
+            return res.status(400).json({mensaje: "correo o contraseña incorrecta"})
+        }
+        res.status(200).json({mensaje: "los datos del usuario son correctos", usuarioExistente})
+    } catch (error) {
+        console.error(error)
+        res.status(500).json({mensaje: "Ocurrio un error, no se pudo consultar el usuario"})
+    }
+}
