@@ -1,6 +1,6 @@
 import { Router } from "express";
 import validacionUsuario from "../helpers/validacionUsuarios.js"
-import { crearUsuario } from "../controllers/usuarioControllers.js";
+import { crearUsuario, login } from "../controllers/usuarioControllers.js";
 
 const usuarioRouter = Router()
 
@@ -10,7 +10,7 @@ usuarioRouter
   .get();
 usuarioRouter
   .route("/login")
-  .post()
+  .post(login)
   
 
 
