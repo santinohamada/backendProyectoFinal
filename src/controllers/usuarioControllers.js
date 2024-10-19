@@ -22,7 +22,8 @@ export const crearUsuario = async (req,res)=>{
 export const login = async (req,res)=>{
     try {
         const {dni,password} = req.body
-        const usuarioExistente = Usuario.findOne({dni})
+        const usuarioExistente = await Usuario.findOne({dni})
+       
         if(!usuarioExistente){
             return res.status(400).json({mensaje: "correo o contraseña incorrecta"})
         }
