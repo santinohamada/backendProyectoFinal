@@ -5,7 +5,7 @@ import { crearUsuario, login } from "../controllers/usuarioControllers.js";
 const usuarioRouter = Router()
 
 usuarioRouter
-  .route("/")
+  .route("/usuarios")
   .post([validacionUsuario], crearUsuario)
   .get();
 usuarioRouter
