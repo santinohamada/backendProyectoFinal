@@ -47,6 +47,9 @@ const usuarioSchema =  new Schema({
         minLength: 10,
         maxLength: 50,
         
+    },
+    rol:{
+        type: Boolean
     }
 })
 
