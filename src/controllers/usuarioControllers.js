@@ -77,3 +77,14 @@ export const login = async (req, res) => {
       .json({ mensaje: "Ocurrió un error, no se pudo consultar el usuario" });
   }
 };
+
+export const listarUsuarios = async (req, res) => {
+    try {
+        const arrayUsuarios = await Usuario.find()
+        res.status(200).json(arrayUsuarios)
+    } catch (error) {
+        res.status(404).json({
+            mensaje:"Ocurrio un error, no se encontraron los usuarios"
+        })
+    }
+}
