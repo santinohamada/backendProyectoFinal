@@ -3,29 +3,39 @@ import Habitacion from "../database/model/habitacion.js";
 export const habitacionesDisponibles = async (req, res) => {
   try {
     const fechas = {
-      checkIn: new Date(req.body.checkIn),
-      checkOut: new Date(req.body.checkOut),
+      checkIn: new Date(req.body[0]),
+      checkOut: new Date(req.body[1]),
     };
-    console.log(fechas.checkIn);
-    console.log(typeof fechas.checkIn);
     const habitacionesDisponibles = await Habitacion.aggregate([
-      {
-        $lookup: {
-          from: "reservas",
-          localField: "numberRoom",
-          foreignField: "roomId",
-          as: "HabitacionesConReserva",
+        {
+          $lookup: {
+            from: "reservas",
+            localField: "numberRoom",
+            foreignField: "roomNumber",
+            as: "HabitacionesConReserva",
+          },
         },
-      },
-      {
-        $match: {
-          $or: [
-            { "HabitacionesConReserva.checkIn": { $gt: fechas.checkOut } },
-            { "HabitacionesConReserva.checkOut": { $lt: fechas.checkIn } },
-          ],
+        {
+          $match: {
+            $or: [
+              { HabitacionesConReserva: { $eq: [] } }, 
+              {
+                HabitacionesConReserva: {
+                  $not: {
+                    $elemMatch: {
+                      $or: [
+                        { checkIn: { $lt: fechas.checkOut, $gte: fechas.checkIn } }, 
+                        { checkOut: { $gt: fechas.checkIn, $lte: fechas.checkOut } }, 
+                        { checkIn: { $lte: fechas.checkIn }, checkOut: { $gte: fechas.checkOut } } // Reserva cubre todo el rango
+                      ]
+                    }
+                  }
+                }
+              }
+            ],
+          },
         },
-      },
-    ]);
+      ]);
     res.send(habitacionesDisponibles);
     return habitacionesDisponibles;
   } catch (error) {
