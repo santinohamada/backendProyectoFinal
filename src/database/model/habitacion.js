@@ -2,7 +2,7 @@ import mongoose from "mongoose";
 
 const habitacionSchema = new mongoose.Schema({
   type: { type: String, required: true },
-  numberRoom: { type: Number, required: true },
+  roomNumber: { type: Number, required: true },
   price: { type: Number, required: true },
   nights: { type: Number, required: true },
   capacity: { type: Number, required: true },

@@ -10,7 +10,7 @@ export const habitacionesDisponibles = async (req, res) => {
       {
         $lookup: {
           from: "reservas",
-          localField: "numberRoom",
+          localField: "roomNumber",
           foreignField: "roomNumber",
           as: "HabitacionesConReserva",
         },
