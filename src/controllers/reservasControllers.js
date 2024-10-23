@@ -32,32 +32,20 @@ export const obtenerReserva = async (req, res) => {
 
 export const borrarReserva = async (req, res) => {
   try {
-    const reservaBuscada = await Reservas.findById(req.params.id);
-    if (!reservaBuscada) {
-      return res.status(404).json({
-        mensaje: "La reserva no fue encontrada",
-      });
+    const reservaBuscada = await Reservas.findById(req.params.id)
+    if(!reservaBuscada){
+        return res.status(404).json({
+            mensaje:"La reserva no fue encontrada"
+        })
     }
-    await Reservas.findByIdAndDelete(req.params.id);
+    await Reservas.findByIdAndDelete(req.params.id)
     res.status(200).json({
-      mensaje: "La reserva fue eliminada correctamente",
-    });
+        mensaje:"La reserva fue eliminada correctamente"
+    })
   } catch (error) {
     console.error(error);
     res
       .status(500)
       .json({ mensaje: "Ocurrio un error al intentar borrar una reserva" });
-  }
-};
-export const crearReserva = async (req, res) => {
-  try {
-    console.log(req.body);
-    const nuevaReserva = new Reservas(req.body);
-    await nuevaReserva.save();
-    res.status(200).json({ nuevaReserva });
-    return nuevaReserva;
-  } catch (error) {
-    console.error(error);
-    res.status(500).json({ error });
   }
 };
