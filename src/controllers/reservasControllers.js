@@ -15,6 +15,11 @@ export const obtenerReserva = async(req, res)=>{
     try {
         console.log(req.params.id)
         const reservaBuscada = await Reservas.findById(req.params.id)
+        if(!reservaBuscada){
+            return res.status(404).json({
+                mensaje: "Reserva no encontrada"
+            })
+        }
         console.log(reservaBuscada)
         res.status(200).json(reservaBuscada)
     } catch (error) {
