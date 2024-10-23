@@ -6,6 +6,7 @@ import { fileURLToPath } from "url";
 import "./src/database/databaseConnection.js"
 import HabitacionesRouter from "./src/routes/habitaciones.routes.js";
 import usuarioRouter from "./src/routes/usuarios.routes.js"
+import reservaRouter from "./src/routes/reservas.routes.js"
 
 
 //1- configurar un puerto
@@ -28,3 +29,4 @@ app.use(express.static(path.join(__dirname,"public")))//configuramos un archivo 
 
 app.use('/api',HabitacionesRouter)
 app.use('/api',usuarioRouter)
+app.use('/api',reservaRouter)
