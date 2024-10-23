@@ -7,35 +7,45 @@ export const habitacionesDisponibles = async (req, res) => {
       checkOut: new Date(req.body[1]),
     };
     const habitacionesDisponibles = await Habitacion.aggregate([
-        {
-          $lookup: {
-            from: "reservas",
-            localField: "numberRoom",
-            foreignField: "roomNumber",
-            as: "HabitacionesConReserva",
-          },
+      {
+        $lookup: {
+          from: "reservas",
+          localField: "numberRoom",
+          foreignField: "roomNumber",
+          as: "HabitacionesConReserva",
         },
-        {
-          $match: {
-            $or: [
-              { HabitacionesConReserva: { $eq: [] } }, 
-              {
-                HabitacionesConReserva: {
-                  $not: {
-                    $elemMatch: {
-                      $or: [
-                        { checkIn: { $lt: fechas.checkOut, $gte: fechas.checkIn } }, 
-                        { checkOut: { $gt: fechas.checkIn, $lte: fechas.checkOut } }, 
-                        { checkIn: { $lte: fechas.checkIn }, checkOut: { $gte: fechas.checkOut } } // Reserva cubre todo el rango
-                      ]
-                    }
-                  }
-                }
-              }
-            ],
-          },
+      },
+      {
+        $match: {
+          $or: [
+            { HabitacionesConReserva: { $eq: [] } },
+            {
+              HabitacionesConReserva: {
+                $not: {
+                  $elemMatch: {
+                    $or: [
+                      {
+                        checkIn: { $lt: fechas.checkOut, $gte: fechas.checkIn },
+                      },
+                      {
+                        checkOut: {
+                          $gt: fechas.checkIn,
+                          $lte: fechas.checkOut,
+                        },
+                      },
+                      {
+                        checkIn: { $lte: fechas.checkIn },
+                        checkOut: { $gte: fechas.checkOut },
+                      }, // Reserva cubre todo el rango
+                    ],
+                  },
+                },
+              },
+            },
+          ],
         },
-      ]);
+      },
+    ]);
     res.send(habitacionesDisponibles);
     return habitacionesDisponibles;
   } catch (error) {
