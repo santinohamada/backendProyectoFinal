@@ -12,7 +12,7 @@
     "ExpressJS",
     "Mongoose"
   ],
-  "author": "Hamada Santino, Matias Salazar, Felicitas Ralle, Gustavo Guettar",
+  "author": "Hamada Santino, Matias Salazar, Felicitas Ralle, Gustavo Gettar",
   "license": "ISC",
   "description": "operaciones del CRUD para el backend del Hotel",
   "dependencies": {
