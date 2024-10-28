@@ -121,3 +121,17 @@ export const listarUsuarios = async (req, res) => {
     });
   }
 };
+
+export const obtenerUsuario = async(req,res)=>{
+  try{
+    console.log(req.params.id)
+    const usuarioBuscado = await Usuario.findById(req.params.id);
+    console.log(usuarioBuscado)
+    res.status(200).json(usuarioBuscado)
+  }catch (error){
+    console.error(error)
+    res.status(500).json({
+      mensaje: "Ocurrio un error, no se pudo obtener el usuario"
+    })
+  }
+}
