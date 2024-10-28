@@ -155,6 +155,6 @@ export const borrarUsuario = async (req, res) => {
     console.error(error);
     res
       .status(500)
-      .json({ mensjae: "Ocurrio un error al intentar borrar un producto" });
+      .json({ mensaje: "Ocurrio un error al intentar borrar un producto" });
   }
 };
