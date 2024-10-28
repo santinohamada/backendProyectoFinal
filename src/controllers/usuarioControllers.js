@@ -121,3 +121,14 @@ export const listarUsuarios = async (req, res) => {
     });
   }
 };
+
+export const listarUsuarioById = async (req,res)=>{
+  try {
+    const usuario = await Usuario.findById(req.params.id)
+    res.status(200).json(usuario)
+  } catch (error) {
+    res.status(404).json({
+      mensaje: "No se pudo encontrar el usuario"
+    })
+  }
+}

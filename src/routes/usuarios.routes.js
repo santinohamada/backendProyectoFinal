@@ -5,6 +5,7 @@ import {
   login,
   listarUsuarios,
   verificarAdmin,
+  listarUsuarioById,
 } from "../controllers/usuarioControllers.js";
 
 const usuarioRouter = Router();
@@ -15,5 +16,6 @@ usuarioRouter
   .get(listarUsuarios);
 usuarioRouter.route("/login").post(login);
 usuarioRouter.route("/verificarAdmin").post(verificarAdmin);
+usuarioRouter.route("/usuarios/:id").get(listarUsuarioById)
 
 export default usuarioRouter;
