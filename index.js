@@ -10,6 +10,12 @@ import reservaRouter from "./src/routes/reservas.routes.js";
 
 //1- configurar un puerto
 const app = express();
+app.use((req, res, next) => {
+  res.set('Cache-Control', 'no-store, no-cache, must-revalidate, private');
+  res.set('Pragma', 'no-cache');
+  res.set('Expires', '0');
+  next();
+});
 app.set("port", process.env.PORT || 4000);
 app.listen(app.get("port"), () => {
   console.info("Estoy escuchando el puerto " + app.get("port"));
@@ -21,6 +27,7 @@ app.use(cors()); // permite conexiones remotas
 app.use(morgan("dev")); // nos da info extra en la terminal
 app.use(express.json()); // interpreta los datos del body en formato json
 app.use(express.urlencoded({ extended: true })); //interpreta datos enviados en formularios
+
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);

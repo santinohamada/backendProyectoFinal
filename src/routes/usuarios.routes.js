@@ -17,6 +17,8 @@ usuarioRouter
   .get(listarUsuarios);
 usuarioRouter.route("/login").post(login);
 usuarioRouter.route("/verificarAdmin").post(verificarAdmin);
+
 usuarioRouter.route("/usuarios/:id").get(obtenerUsuario).delete(borrarUsuario);
+
 
 export default usuarioRouter;

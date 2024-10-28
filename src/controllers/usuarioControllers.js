@@ -122,6 +122,7 @@ export const listarUsuarios = async (req, res) => {
   }
 };
 
+
 export const obtenerUsuario = async (req, res) => {
   try {
     console.log(req.params.id);
@@ -158,3 +159,4 @@ export const borrarUsuario = async (req, res) => {
       .json({ mensaje: "Ocurrio un error al intentar borrar un producto" });
   }
 };
+
