@@ -126,7 +126,11 @@ export const obtenerUsuario = async(req,res)=>{
   try{
     console.log(req.params.id)
     const usuarioBuscado = await Usuario.findById(req.params.id);
-    console.log(usuarioBuscado)
+
+    if(!usuarioBuscado){
+      return res.status(404).json({mensaje: 'El usuario no fue encontrado'})
+    }
+
     res.status(200).json(usuarioBuscado)
   }catch (error){
     console.error(error)
