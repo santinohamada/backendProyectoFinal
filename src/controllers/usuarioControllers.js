@@ -122,20 +122,39 @@ export const listarUsuarios = async (req, res) => {
   }
 };
 
-export const obtenerUsuario = async(req,res)=>{
-  try{
-    console.log(req.params.id)
+export const obtenerUsuario = async (req, res) => {
+  try {
+    console.log(req.params.id);
     const usuarioBuscado = await Usuario.findById(req.params.id);
 
-    if(!usuarioBuscado){
-      return res.status(404).json({mensaje: 'El usuario no fue encontrado'})
+    if (!usuarioBuscado) {
+      return res.status(404).json({ mensaje: "El usuario no fue encontrado" });
     }
 
-    res.status(200).json(usuarioBuscado)
-  }catch (error){
-    console.error(error)
+    res.status(200).json(usuarioBuscado);
+  } catch (error) {
+    console.error(error);
     res.status(500).json({
-      mensaje: "Ocurrio un error, no se pudo obtener el usuario"
-    })
+      mensaje: "Ocurrio un error, no se pudo obtener el usuario",
+    });
   }
-}
+};
+
+export const borrarUsuario = async (req, res) => {
+  try {
+    req.params.id;
+    const usuarioBuscado = await Usuario.findById(req.params.id);
+
+    if (!usuarioBuscado) {
+      return res.status(404).json({ mensaje: "El usuario no fue encontrado" });
+    }
+
+    await Usuario.findByIdAndDelete(req.params.id);
+    res.status(200).json({mensaje: 'El usuario fue eliminado correctamente'});
+  } catch (error) {
+    console.error(error);
+    res
+      .status(500)
+      .json({ mensjae: "Ocurrio un error al intentar borrar un producto" });
+  }
+};
