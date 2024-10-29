@@ -8,6 +8,7 @@ import {
   obtenerUsuario,
   borrarUsuario,
 } from "../controllers/usuarioControllers.js";
+import { verificarToken } from "../helpers/verificarJWT.js";
 
 const usuarioRouter = Router();
 
@@ -16,9 +17,8 @@ usuarioRouter
   .post([validacionUsuario], crearUsuario)
   .get(listarUsuarios);
 usuarioRouter.route("/login").post(login);
-usuarioRouter.route("/verificarAdmin").post(verificarAdmin);
+usuarioRouter.route("/verificarAdmin").post(verificarToken, verificarAdmin);
 
 usuarioRouter.route("/usuarios/:id").get(obtenerUsuario).delete(borrarUsuario);
-
 
 export default usuarioRouter;

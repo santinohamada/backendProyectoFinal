@@ -1,39 +1,22 @@
 import Usuario from "../../src/database/model/usuarios.js";
 import bcrypt from "bcrypt";
+import generarToken from "../helpers/generarJWT.js";
 export const verificarAdmin = async (req, res) => {
   try {
-    const { dni, email } = req.body;
+    const { rol } = req.user;
 
-    if (!dni && !email) {
-      return res.status(400).json({ mensaje: "DNI o correo son necesarios" });
-    }
-
-    let usuarioExistente;
-
-    if (dni) {
-      usuarioExistente = await Usuario.findOne({ dni });
-    }
-
-    if (!usuarioExistente && email) {
-      usuarioExistente = await Usuario.findOne({ email });
-    }
-
-    if (!usuarioExistente) {
+    if (rol !== true) {
       return res
-        .status(400)
-        .json({ mensaje: "Correo o contraseña incorrecta" });
+        .status(403)
+        .json({ mensaje: "No tiene permisos de administrador", rol: false });
     }
-    if (usuarioExistente) {
-      res.status(200).json({
-        mensaje: "El usuario existe",
-        rol: usuarioExistente.rol,
-      });
-    }
+
+    res.status(200).json({ mensaje: "El usuario es administrador", rol: true });
   } catch (error) {
     console.error(error);
     res
       .status(500)
-      .json({ mensaje: "Ocurrió un error, no se pudo consultar el usuario" });
+      .json({ mensaje: "Ocurrió un error al verificar el administrador" });
   }
 };
 export const crearUsuario = async (req, res) => {
@@ -87,7 +70,6 @@ export const login = async (req, res) => {
         .json({ mensaje: "Correo o contraseña incorrecta" });
     }
 
-    // Verificar la contraseña solo si el usuario fue encontrado
     const passwordValido = bcrypt.compareSync(
       password,
       usuarioExistente.password
@@ -97,11 +79,17 @@ export const login = async (req, res) => {
         .status(400)
         .json({ mensaje: "Correo o contraseña incorrecta" });
     }
+    const token = await generarToken(
+      usuarioExistente._id,
+      usuarioExistente.email,
+      usuarioExistente.dni,
+      usuarioExistente.rol
+    );
 
-    // Si todo está bien, enviar respuesta con los datos del usuario
     res.status(200).json({
       mensaje: "Los datos del usuario son correctos",
       usuario: usuarioExistente,
+      token: token,
     });
   } catch (error) {
     console.error(error);
@@ -122,10 +110,8 @@ export const listarUsuarios = async (req, res) => {
   }
 };
 
-
 export const obtenerUsuario = async (req, res) => {
   try {
-    console.log(req.params.id);
     const usuarioBuscado = await Usuario.findById(req.params.id);
 
     if (!usuarioBuscado) {
@@ -151,7 +137,7 @@ export const borrarUsuario = async (req, res) => {
     }
 
     await Usuario.findByIdAndDelete(req.params.id);
-    res.status(200).json({mensaje: 'El usuario fue eliminado correctamente'});
+    res.status(200).json({ mensaje: "El usuario fue eliminado correctamente" });
   } catch (error) {
     console.error(error);
     res
@@ -159,4 +145,3 @@ export const borrarUsuario = async (req, res) => {
       .json({ mensaje: "Ocurrio un error al intentar borrar un producto" });
   }
 };
-
