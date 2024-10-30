@@ -145,3 +145,15 @@ export const borrarUsuario = async (req, res) => {
       .json({ mensaje: "Ocurrio un error al intentar borrar un producto" });
   }
 };
+export const editarUsuario = async (req,res) =>{
+  try{
+    const usuarioBuscado = await Usuario.findById(req.params.id)
+    if (!usuarioBuscado){
+      return res.status(404).json({mensaje: 'El usuario no se pudo ecnontrar'})
+    }
+    await Usuario.findByIdAndUpdate(req.params.id, req.body)
+    res.status(200).json({mensaje: 'El usuario fue encontrado exitosamente'})
+  }catch (error) {
+    res.status(500).json({mensaje: 'Ocurrior un error al intentar editar el usuario'})
+  }
+}
