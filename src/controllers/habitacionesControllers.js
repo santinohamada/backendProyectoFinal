@@ -67,7 +67,7 @@ export const buscarHabitacionYActualizar = async (req,res) => {
     if(!habitaciones){
       return res.status(404).json({mensaje: "Habitacion no encontrada"})
     }
-    await Habitacion.findByIdAndUpdate(req.params.id,req.params.body)
+    await Habitacion.findByIdAndUpdate(req.params.id,req.body)
     res.status(200).json({mensaje: "la habitacion fue actualizada con exito"})
   } catch (error) {
     res.status(500).json({mensaje: "No se pudo actualizar la habitacion "})
