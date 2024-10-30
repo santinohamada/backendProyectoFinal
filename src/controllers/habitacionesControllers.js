@@ -61,15 +61,16 @@ export const listarHabitaciones = async (req, res) => {
   } catch (error) {}
 };
 
-export const buscarHabitacion = async (req,res) => {
+export const buscarHabitacionYActualizar = async (req,res) => {
   try {
     const habitaciones = await Habitacion.findById(req.params.id)
     if(!habitaciones){
       return res.status(404).json({mensaje: "Habitacion no encontrada"})
     }
-    res.status(200).json(habitaciones)
+    await Habitacion.findByIdAndUpdate(req.params.id,req.params.body)
+    res.status(200).json({mensaje: "la habitacion fue actualizada con exito"})
   } catch (error) {
-    res.status(500).json({mensaje: "No se pudo obtener el usuario "})
+    res.status(500).json({mensaje: "No se pudo actualizar la habitacion "})
     
   }
 }
