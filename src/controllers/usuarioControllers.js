@@ -7,7 +7,7 @@ export const verificarAdmin = async (req, res) => {
 
     if (rol !== true) {
       return res
-        .status(403)
+        .status(200)
         .json({ mensaje: "No tiene permisos de administrador", rol: false });
     }
 
@@ -22,7 +22,6 @@ export const verificarAdmin = async (req, res) => {
 export const crearUsuario = async (req, res) => {
   try {
     const { nombre, apellido, dni, email, rol, password, domicilio } = req.body;
-
     const saltos = bcrypt.genSaltSync(10);
     const passwordHasheado = bcrypt.hashSync(password, saltos);
     const usuarioNuevo = new Usuario({
@@ -101,6 +100,7 @@ export const login = async (req, res) => {
 
 export const listarUsuarios = async (req, res) => {
   try {
+    if(!req.user.rol) return res.status(401).send("No posee los suficientes permisos para realizar esta operacion")
     const arrayUsuarios = await Usuario.find();
     res.status(200).json(arrayUsuarios);
   } catch (error) {
@@ -111,6 +111,7 @@ export const listarUsuarios = async (req, res) => {
 };
 
 export const obtenerUsuario = async (req, res) => {
+  if(!req.user.rol) return res.status(401).send("No posee los suficientes permisos para realizar esta operacion")
   try {
     const usuarioBuscado = await Usuario.findById(req.params.id);
 
@@ -129,7 +130,7 @@ export const obtenerUsuario = async (req, res) => {
 
 export const borrarUsuario = async (req, res) => {
   try {
-    req.params.id;
+    if(!req.user.rol) return res.status(401).send("No posee los suficientes permisos para realizar esta operacion")
     const usuarioBuscado = await Usuario.findById(req.params.id);
 
     if (!usuarioBuscado) {
@@ -146,6 +147,7 @@ export const borrarUsuario = async (req, res) => {
   }
 };
 export const editarUsuario = async (req,res) =>{
+  if(!req.user.rol) return res.status(401).send("No posee los suficientes permisos para realizar esta operacion")
   try{
     const usuarioBuscado = await Usuario.findById(req.params.id)
     if (!usuarioBuscado){

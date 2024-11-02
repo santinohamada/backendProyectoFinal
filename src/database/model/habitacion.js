@@ -4,7 +4,6 @@ const habitacionSchema = new mongoose.Schema({
   type: { type: String, required: true },
   roomNumber: { type: Number, required: true },
   price: { type: Number, required: true },
-  nights: { type: Number, required: true },
   capacity: { type: Number, required: true },
   image: { type: String, required: true },
   description: { type: String, required: true },
