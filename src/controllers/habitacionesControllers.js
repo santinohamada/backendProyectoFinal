@@ -53,12 +53,24 @@ export const habitacionesDisponibles = async (req, res) => {
   }
 };
 
-export const listarHabitaciones = async (req, res) => {
+export const listarHabitacion = async (req, res) => {
   try {
-    const habitaciones = await Habitacion.find();
+    const habitaciones = await Habitacion.findById(req.params.id);
+    if(!habitaciones) return res.status(404).json({Mensaje: "No se encontró la habitacion"})
     res.status(200).json({ habitaciones: habitaciones });
     return habitaciones;
-  } catch (error) {}
+  } catch (error) { console.error(error)}
+};
+export const borrarHabitacion = async (req, res) => {
+  try {
+    const habitaciones = await Habitacion.findById(req.params.id);
+    if(!habitaciones) return res.status(404).json({Mensaje: "No se encontró la habitacion"})
+     await Habitacion.findByIdAndDelete(req.params.id);
+    res.status(200).json({ habitaciones: habitaciones });
+    return habitaciones;
+  } catch (error) {
+    res.status(500).json({mensaje: "No se pudo eliminar la habitacion "})
+  }
 };
 
 export const buscarHabitacionYActualizar = async (req,res) => {
