@@ -5,7 +5,7 @@ const verificarToken = (req, res, next) => {
     const token = req.header("X-Token");
 
     if (!token)
-      return res.status(401).json({ mensaje: "No hay token", status: "false" });
+      return res.status(401).json({ mensaje: "No hay token"});
 
     const payload = jwt.verify(token, process.env.JWT_SECRET);
     req.user = payload;

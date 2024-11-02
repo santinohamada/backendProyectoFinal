@@ -52,7 +52,14 @@ export const habitacionesDisponibles = async (req, res) => {
     console.error(error);
   }
 };
-
+export const listarHabitaciones = async (req, res) => {
+  try {
+    const habitaciones = await Habitacion.find();
+    if(!habitaciones) return res.status(404).json({Mensaje: "No se encontraron habitaciones"})
+    res.status(200).json({ habitaciones: habitaciones });
+    return habitaciones;
+  } catch (error) { console.error(error)}
+};
 export const listarHabitacion = async (req, res) => {
   try {
     const habitaciones = await Habitacion.findById(req.params.id);
