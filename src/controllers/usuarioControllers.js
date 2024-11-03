@@ -152,7 +152,7 @@ export const editarUsuario = async (req,res) =>{
   try{
     const usuarioBuscado = await Usuario.findById(req.params.id)
     if (!usuarioBuscado){
-      return res.status(404).json({mensaje: 'El usuario no se pudo ecnontrar'})
+      return res.status(404).json({mensaje: 'El usuario no se pudo encontrar'})
     }
     await Usuario.findByIdAndUpdate(req.params.id, req.body)
     res.status(200).json({mensaje: 'El usuario fue encontrado exitosamente'})

@@ -7,6 +7,7 @@ import {
   verificarAdmin,
   obtenerUsuario,
   borrarUsuario,
+  editarUsuario,
 } from "../controllers/usuarioControllers.js";
 import  verificarToken  from "../helpers/verificarJWT.js";
 
@@ -19,6 +20,6 @@ usuarioRouter
 usuarioRouter.route("/login").post(login);
 usuarioRouter.route("/verificarAdmin").post([verificarToken],verificarAdmin);
 
-usuarioRouter.route("/usuarios/:id").get([verificarToken],obtenerUsuario).delete([verificarToken],borrarUsuario);
+usuarioRouter.route("/usuarios/:id").get([verificarToken],obtenerUsuario).delete([verificarToken],borrarUsuario).put([verificarToken],editarUsuario)
 
 export default usuarioRouter;
