@@ -93,3 +93,16 @@ export const buscarHabitacionYActualizar = async (req,res) => {
     
   }
 }
+
+export const nuevaHabitacion = async (req,res)=>{
+  try {
+    const habitaciones = new Habitacion(req.body)
+    await habitaciones.save()
+    res.status(201).json({mensaje: "La habitacion fue creada correctamente"})
+  } catch (error) {
+    console.error(error)
+        res.status(500).json({
+            mensaje: "Ocurrio un error, no se pudo crear la habitacion"
+        })
+  }
+}

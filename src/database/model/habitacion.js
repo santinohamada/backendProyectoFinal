@@ -7,9 +7,9 @@ const habitacionSchema = new mongoose.Schema({
   capacity: { type: Number, required: true },
   image: { type: String, required: true },
   description: { type: String, required: true },
-  size: { type: Number, required: true },
+  size: { type: Number, required: false },
   bed: { type: Number, required: true },
-  taxes: { type: Number, required: true },
+  taxes: { type: Number, required: false },
   breakfast: { type: Boolean, required: true },
   include: { type: String, required: true },
 });
