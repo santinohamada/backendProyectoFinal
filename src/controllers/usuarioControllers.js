@@ -100,6 +100,7 @@ export const login = async (req, res) => {
 
 export const listarUsuarios = async (req, res) => {
   try {
+   
     if(!req.user.rol) return res.status(401).send("No posee los suficientes permisos para realizar esta operacion")
     const arrayUsuarios = await Usuario.find();
     res.status(200).json(arrayUsuarios);
