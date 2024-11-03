@@ -48,7 +48,7 @@ check("password")
 .withMessage(
     "La contraseña es invalida"
 )
-.matches(/^(?=.*\d)(?=.*[\u0021-\u002b\u003c-\u0040])(?=.*[A-Z])(?=.*[a-z])\S{5,8}$/)
+.matches(/^(?=.*\d)(?=.*[\u0021-\u002b\u003c-\u0040])(?=.*[A-Z])(?=.*[a-z])\S{8,100}$/)
 .withMessage("La contraseña debe tener entre 5 y 8 caracteres, contener un digito, al menos una minuscula, al menos una mayuscula y al menos un caracter especial")
 ,check('domicilio')
 .notEmpty()

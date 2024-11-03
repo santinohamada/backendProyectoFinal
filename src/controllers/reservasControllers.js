@@ -1,6 +1,7 @@
 import Reservas from "../../src/database/model/reserva.js";
 
 export const listarReservas = async (req, res) => {
+  if(!req.user.rol) return res.status(401).send("No posee los suficientes permisos para realizar esta operacion")
   try {
     const reservas = await Reservas.find();
     res.status(200).json(reservas);
@@ -13,14 +14,13 @@ export const listarReservas = async (req, res) => {
 };
 export const obtenerReserva = async (req, res) => {
   try {
-    console.log(req.params.id);
     const reservaBuscada = await Reservas.findById(req.params.id);
     if (!reservaBuscada) {
       return res.status(404).json({
         mensaje: "Reserva no encontrada",
       });
     }
-    console.log(reservaBuscada);
+    
     res.status(200).json(reservaBuscada);
   } catch (error) {
     console.error(error);
@@ -31,6 +31,7 @@ export const obtenerReserva = async (req, res) => {
 };
 
 export const borrarReserva = async (req, res) => {
+  if(!req.user.rol) return res.status(401).send("No posee los suficientes permisos para realizar esta operacion")
   try {
     const reservaBuscada = await Reservas.findById(req.params.id);
     if (!reservaBuscada) {
@@ -51,7 +52,7 @@ export const borrarReserva = async (req, res) => {
 };
 export const crearReserva = async (req, res) => {
   try {
-    console.log(req.body);
+    
     const nuevaReserva = new Reservas(req.body);
     await nuevaReserva.save();
     res.status(200).json({ nuevaReserva });

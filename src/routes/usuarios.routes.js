@@ -8,17 +8,17 @@ import {
   obtenerUsuario,
   borrarUsuario,
 } from "../controllers/usuarioControllers.js";
+import  verificarToken  from "../helpers/verificarJWT.js";
 
 const usuarioRouter = Router();
 
 usuarioRouter
   .route("/usuarios")
   .post([validacionUsuario], crearUsuario)
-  .get(listarUsuarios);
+  .get([verificarToken],listarUsuarios);
 usuarioRouter.route("/login").post(login);
-usuarioRouter.route("/verificarAdmin").post(verificarAdmin);
+usuarioRouter.route("/verificarAdmin").post([verificarToken],verificarAdmin);
 
-usuarioRouter.route("/usuarios/:id").get(obtenerUsuario).delete(borrarUsuario);
-
+usuarioRouter.route("/usuarios/:id").get([verificarToken],obtenerUsuario).delete([verificarToken],borrarUsuario);
 
 export default usuarioRouter;
