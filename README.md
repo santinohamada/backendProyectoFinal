@@ -1,7 +1,7 @@
-```markdown
-# Proyecto Final - Hotel Patagonia 🏨
+# [Proyecto Final - Hotel Patagonia 🏨](https://github.com/santinohamada/ProyectoFinal)
+Este proyecto es el backend de la aplicación **[Hotel Patagonia](https://github.com/santinohamada/ProyectoFinal)**, un sistema completo para la gestión de un hotel 4 estrellas. Implementado con **Node.js**, **Express**, y **MongoDB**, proporciona una API robusta para gestionar usuarios, habitaciones y reservas.
 
-Este proyecto es el backend de la aplicación **Hotel Patagonia**, un sistema completo para la gestión de un hotel 4 estrellas. Implementado con **Node.js**, **Express**, y **MongoDB**, proporciona una API robusta para gestionar usuarios, habitaciones y reservas.
+
 
 ## Tabla de Contenidos
 
@@ -18,20 +18,19 @@ Este proyecto es el backend de la aplicación **Hotel Patagonia**, un sistema co
 
 ## Descripción
 
-El backend de **Hotel Patagonia** gestiona la autenticación de usuarios, la administración de habitaciones y la gestión de reservas. La API permite que tanto los clientes como los administradores realicen operaciones de manera eficiente, asegurando una experiencia de usuario fluida.
+El backend de **[Hotel Patagonia](https://github.com/santinohamada/ProyectoFinal)** gestiona la autenticación de usuarios, la administración de habitaciones y la gestión de reservas. La API permite que tanto los clientes como los administradores realicen operaciones de manera eficiente, asegurando una experiencia de usuario fluida.
 
 ## Estructura del Proyecto
 
-```
-backendProyectoFinal/
-├── controllers/
-├── middlewares/
-├── models/
-├── routes/
-├── .env
-├── index.js
-└── package.json
-```
+La estructura de este proyecto sigue una organización modular, separando los componentes, contextos, hooks personalizados, y páginas de la aplicación. A continuación se describe cada carpeta y sus componentes más importantes:
+
+- **controllers/**: Controladores para manejar la lógica de negocio.
+- **middlewares/**: Middleware para manejar la autenticación y otras funciones.
+- **models/**: Definiciones de modelos de datos y esquemas.
+- **routes/**: Definiciones de rutas para la API.
+- **.env**: Archivo para las variables de entorno.
+- **index.js**: Punto de entrada de la aplicación.
+- **package.json**: Archivo de configuración del proyecto y dependencias.
 
 ## Instalación y Configuración
 
@@ -47,8 +46,7 @@ backendProyectoFinal/
    ```
 
 3. Crea un archivo `.env` en la raíz del proyecto y añade las siguientes variables de entorno:
-
-   - `MONGODB_URI`: La URI de conexión a tu base de datos MongoDB.
+   - `MONGODB`: La URI de conexión a tu base de datos MongoDB.
    - `JWT_SECRET`: La clave secreta para firmar los tokens JWT.
 
 4. Inicia el servidor:
@@ -84,8 +82,8 @@ backendProyectoFinal/
 
 ¡Agradecemos a los siguientes colaboradores por sus contribuciones! Puedes visitar sus perfiles haciendo clic en sus nombres:
 
-| Colaborador        | Perfil                                    |
-|--------------------|-------------------------------------------|
+| Colaborador                                | Perfil                                       |
+|--------------------------------------------|----------------------------------------------|
 | ![Santino Hamada](https://github.com/santinohamada.png) | [Santino Hamada](https://github.com/santinohamada) |
 | ![Felicitas Ralle](https://github.com/FelicitasRalle.png) | [Felicitas Ralle](https://github.com/FelicitasRalle) |
 | ![Gustavo Gettar](https://github.com/gusgettar.png) | [Gustavo Gettar](https://github.com/gusgettar) |
